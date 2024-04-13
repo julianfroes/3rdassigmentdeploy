@@ -52,26 +52,29 @@ function setComputerSelection(){
 function setWinnerOfTheRound(player, computer){
     return rules[player][computer]
 }
-
+function validateInput(){
+    if(validInputFlag){
+        playerSelection = window.prompt(`${'Write an option.'} | round: ${round}\n${ displayOptions.join("\n")}`);
+    }
+    else{
+        playerSelection = window.prompt(`${'Write an option.'} | round: ${round}\n${'write a correct input'}\n${ displayOptions.join("\n")}`);
+    }
+    if(playerSelection === null){
+        leaveGame = window.confirm('Do you want to leave the battlefield and let the evil wizard win?')
+        if(!leaveGame){
+            console.log("thank you for your loyalty");
+            return
+        } 
+        else{
+            console.log('Thank you for your time');
+            return
+        }
+    }
+}
 function playRound(){
     do {
-        if(validInputFlag){
-            playerSelection = window.prompt(`${'Write an option.'} | round: ${round}\n${ displayOptions.join("\n")}`);
-        }
-        else{
-            playerSelection = window.prompt(`${'Write an option.'} | round: ${round}\n${'write a correct input'}\n${ displayOptions.join("\n")}`);
-        }
-        if(playerSelection === null){
-            leaveGame = window.confirm('Do you want to leave the battlefield and let the evil wizard win?')
-            if(!leaveGame){
-                console.log("thank you for your loyalty");
-                return
-            } 
-            else{
-                console.log('Thank you for your time');
-                return
-            }
-        }
+        //validateInput
+        validateInput();
         playerSelectionLowerCase = playerSelection.toLowerCase();
         validInputFlag = options.includes(playerSelectionLowerCase)
         if(numberOptions.includes(playerSelectionLowerCase)){
